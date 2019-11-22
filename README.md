@@ -1,1 +1,5 @@
-# LaporanTugasIchiro3
+# Laporan Tugas Ichiro 3
+
+Laporan dari penugasan Ichiro ketiga
+
+Laporan lengkap ada di Laporan Penugasan Ichiro Bryan Yehuda Mannuel.md
