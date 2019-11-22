@@ -145,4 +145,131 @@ sudo ldconfig
 ```
 (**Selesai pada 20 November 2019, jam 20.43**)
 
-11. 
+11. Memodifikasi file _OpenCV4.pc_ dengan command :
+```
+cd  ~/Desktop/opencv/build/unix-install/
+vi opencv4.pc 
+```
+dan ganti line :
+```
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir_old=${prefix}/include/opencv4/opencv  <=  ganti line ini
+includedir_new=${prefix}/include/opencv4
+Name:  OpenCV
+Description:  Open  Source Computer Vision Library
+Version:  4.1.0
+
+Libs:  -L${exec_prefix}/lib  -lopencv_gapi  -lopencv_stitching  -lopencv_aruco  -lopencv_bgsegm  -lopencv_bioinspired  -lopencv_ccalib  -lopencv_cvv  -lopencv_dnn_objdetect  -lopencv_dpm  -lopencv_face  -lopencv_freetype  -lopencv_fuzzy  -lopencv_hdf  -lopencv_hfs  -lopencv_img_hash  -lopencv_line_descriptor  -lopencv_quality  -lopencv_reg  -lopencv_rgbd  -lopencv_saliency  -lopencv_sfm  -lopencv_stereo  -lopencv_structured_light  -lopencv_phase_unwrapping  -lopencv_superres  -lopencv_optflow  -lopencv_surface_matching  -lopencv_tracking  -lopencv_datasets  -lopencv_text  -lopencv_dnn  -lopencv_plot  -lopencv_videostab  -lopencv_video  -lopencv_xfeatures2d  -lopencv_shape  -lopencv_ml  -lopencv_ximgproc  -lopencv_xobjdetect  -lopencv_objdetect  -lopencv_calib3d  -lopencv_features2d  -lopencv_highgui  -lopencv_videoio  -lopencv_imgcodecs  -lopencv_flann  -lopencv_xphoto  -lopencv_photo  -lopencv_imgproc  -lopencv_core
+Libs.private:  -ldl  -lm  -lpthread  -lrt  -L/usr/lib/x86_64-linux-gnu  -lGL  -lGLU
+Cflags:  -I${includedir_old}  -I${includedir_new}
+```
+dengan line berikut :
+```
+includedir_old=${prefix}/include/opencv4/opencv2
+```
+(**Selesai pada 20 November 2019, jam 20.55**)
+
+12. Ubah lokasi file _OpenCV4.pc_ dengan command :
+```
+cd  /usr/local/lib/
+mkdir pkgconfig
+sudo cp  ~/Desktop/opencv/build/unix-install/opencv4.pc  /usr/local/lib/pkgconfig/
+```
+(**Selesai pada 20 November 2019, jam 21.02**)
+
+13. Menambahkan file location ke _PKG_CONFIG_PATH Variable_ dan mengubah file _bash.rc_ dengan command :
+```
+sudo vi  ~/.bashrc
+```
+dan tambahkan line berikut ke bagian paling bawah :
+```
+PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
+export PKG_CONFIG_PATH
+```
+kemudian jalankan command berikut untuk memeriksa apakah sudah benar atau belum :
+```
+source  ~/.bashrc
+echo  $PKG_CONFIG_PATH
+```
+(**Selesai pada 20 November 2019, jam 21.13**)
+
+14. Melakukan verifikasi instalasi dengan c++ dengan menjalankan command berikut :
+```
+cd ~/Desktop
+mkdir test_code
+cd test_code
+gedit test.cpp
+```
+dan masukkan code berikut :
+```cpp
+#include "opencv.hpp"
+using  namespace  cv;
+using  namespace  std;
+
+int  main(  int  argc,  char**  argv  )
+{
+cout  <<  "OpenCV version : "  <<  CV_VERSION  <<  endl;
+cout  <<  "Major version : "  <<  CV_MAJOR_VERSION  <<  endl;
+cout  <<  "Minor version : "  <<  CV_MINOR_VERSION  <<  endl;
+cout  <<  "Subminor version : "  <<  CV_SUBMINOR_VERSION  <<  endl;
+}
+```
+lalu jalankan program dengan command berikut :
+```
+cd  ~/Desktop/test_code/
+g++  -std=c++11  test.cpp  `pkg-config  --libs  --cflags opencv4`  -o  result
+/.result
+```
+(**Selesai pada 20 November 2019, jam 21.23**)
+
+15. Melakukan verifikasi instalasi dengan python 2 dengan menjalankan command berikut :
+```
+cd ~/Desktop
+mkdir test_code
+cd test_code
+gedit test_2.py
+```
+dan masukkan code berikut :
+``` 
+import  cv2
+print  "OpenCV version : {0}".format(cv2.__version__)
+major_ver,  minor_ver,  subminor_ver  =  (cv2.__version__).split('.')
+print  "Major version : {0}".format(major_ver)
+print  "Minor version : {0}".format(minor_ver)
+print  "Subminor version : {0}".format(subminor_ver)
+```
+lalu jalankan program dengan command berikut :
+```
+cd  ~/Desktop/test_code/
+workon opencv_source_2
+python test_2.py
+```
+(**Selesai pada 20 November 2019, jam 21.43**)
+
+16. Melakukan verifikasi instalasi dengan python 3 dengan menjalankan command berikut :
+```
+cd ~/Desktop
+mkdir test_code
+cd test_code
+gedit test_3.py
+```
+dan masukkan code berikut :
+``` 
+import  cv2
+print  "OpenCV version : {0}".format(cv2.__version__)
+major_ver,  minor_ver,  subminor_ver  =  (cv2.__version__).split('.')
+print  "Major version : {0}".format(major_ver)
+print  "Minor version : {0}".format(minor_ver)
+print  "Subminor version : {0}".format(subminor_ver)
+```
+lalu jalankan program dengan command berikut :
+```
+cd  ~/Desktop/test_code/
+workon opencv_source_3
+python test_3.py
+```
+(**Selesai pada 20 November 2019, jam 21.53**)
+
+17. Setelah dilakukan verifikasi, memang benar bahwa OpenCV Version 4.1.2 sudah terinstall dan siap untuk digunakan
