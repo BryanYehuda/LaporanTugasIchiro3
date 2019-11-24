@@ -497,7 +497,7 @@ cd test_code/
 
 7. Hasil dari Tutorial ini adalah seperti ini :
 
-![Atom](https://docs.opencv.org/3.4.8/Drawing_1_Tutorial_Result_0.png)
+![Atom](https://docs.opencv.org/3.4.8/Drawing_1_Tutorial_Result_0.png)  
 Dimana, kita belajar untuk membuat bentuk-bentuk sederhana tersebut
 (**Selesai pada 21 November 2019, jam 18.31**)
 
@@ -693,7 +693,7 @@ cd test_code/
 
 8. Hasil dari Tutorial ini adalah seperti ini :
 
-![lena](https://docs.opencv.org/3.4.8/Smoothing_Tutorial_Result_Median_Filter.jpg)
+![lena](https://docs.opencv.org/3.4.8/Smoothing_Tutorial_Result_Median_Filter.jpg)   
 Dimana, kita belajar untuk mengapply berbagai macam filter pada sebuah gambar
 (**Selesai pada 21 November 2019, jam 18.48**)
 
@@ -707,15 +707,15 @@ Dimana, kita belajar untuk mengapply berbagai macam filter pada sebuah gambar
 2. Morphological operator adalah operator yang memproses gambar berdasarkan pada bentuknya. Morphological operator memberikan sebuah element structuring pada sebuag input image untuk menghasilkan output image
 
 3. ada 2 tipe morphological operator dalam OpenCV yang bisa kita gunakan yaitu :
-    * Dilate : adalah operator yang bisa digunakan untuk memperbesar benda dengan cara menghitung anchor point atau titik tengah dari suatu gambar dan mencari nilai maksimum yang bisa digunakan. Kemudian nilai maksimum itu dioutputkan pada tiap pixel sehingga gambar akan terlihat membesar
-![awal](https://docs.opencv.org/3.4.8/Morphology_1_Tutorial_Theory_Original_Image.png)
-Menjadi:
-![dilation](https://docs.opencv.org/3.4.8/Morphology_1_Tutorial_Theory_Dilation.png)
+    * Dilate : adalah operator yang bisa digunakan untuk memperbesar benda dengan cara menghitung anchor point atau titik tengah dari suatu gambar dan mencari nilai maksimum yang bisa digunakan. Kemudian nilai maksimum itu dioutputkan pada tiap pixel sehingga gambar akan terlihat membesar     
+![awal](https://docs.opencv.org/3.4.8/Morphology_1_Tutorial_Theory_Original_Image.png)      
+Menjadi:       
+![dilation](https://docs.opencv.org/3.4.8/Morphology_1_Tutorial_Theory_Dilation.png)        
 
-    * Erode : adalah operator yang bisa digunakan untuk memperkecil benda dengan cara menghitung anchor point atau titik tengah dari suatu gambar dan mencari nilai minimum yang bisa digunakan. Kemudian nilai minimum itu dioutputkan pada tiap pixel sehingga gambar akan terlihat mengecil 
-![awal](https://docs.opencv.org/3.4.8/Morphology_1_Tutorial_Theory_Original_Image.png)
-Menjadi :
-![erode](https://docs.opencv.org/3.4.8/Morphology_1_Tutorial_Theory_Erosion.png)
+    * Erode : adalah operator yang bisa digunakan untuk memperkecil benda dengan cara menghitung anchor point atau titik tengah dari suatu gambar dan mencari nilai minimum yang bisa digunakan. Kemudian nilai minimum itu dioutputkan pada tiap pixel sehingga gambar akan terlihat mengecil         
+![awal](https://docs.opencv.org/3.4.8/Morphology_1_Tutorial_Theory_Original_Image.png)       
+Menjadi :      
+![erode](https://docs.opencv.org/3.4.8/Morphology_1_Tutorial_Theory_Erosion.png)       
 
 4. Buat file baru dengan nama erode.cpp dan copy-paste code berikut :
 ```cpp
@@ -934,7 +934,7 @@ cd test_code/
 
 8. Hasil dari Tutorial ini adalah seperti ini :
 
-![kochenk](https://docs.opencv.org/3.4.8/Morphology_1_Result.jpg)
+![kochenk](https://docs.opencv.org/3.4.8/Morphology_1_Result.jpg)      
 Dimana, kita belajar untuk mengapply berbagai macam morphological operator pada sebuah gambar
 (**Selesai pada 21 November 2019, jam 19.06**)
 
@@ -946,16 +946,16 @@ Dimana, kita belajar untuk mengapply berbagai macam morphological operator pada 
 2. Kali ini akan belajar 5 lagi morphological transformation yang mana mereka adalah gabungan dari morphological operator sebelumnya, yaitu Dilation dan Erode 
 
 3. ada 5 tipe morphological transformation dalam OpenCV yang bisa kita gunakan yaitu :
-    * Opening : adalah transformation dari erode diikuti oleh dilation yang berguna untuk menghilangkan benda-benda kecil yang tidak kita inginkan disekitar gambar
-![opening](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_Opening.png)
-    * Closing : adalah transformation dari dilation diikuti oleh erode yang berguna untuk menghilangkan lubang-lubang kecil yang tidak kita inginkan didalam gambar
-![closing](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_Closing.png)
-    * Morphological Gradient : adalah selisih dari dilation dan erode dari sebuah gambar, berguna untuk mencari garis luar dari sebuah gambar
-![Gradient](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_Gradient.png)
-    * Top Hat : selisih antara input image dengan opening
-    ![Top Hat](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_TopHat.png)
-    * Black Hat : selisih antara closing dengan input image
-    ![Black Hat](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_BlackHat.png)
+    * Opening : adalah transformation dari erode diikuti oleh dilation yang berguna untuk menghilangkan benda-benda kecil yang tidak kita inginkan disekitar gambar       
+![opening](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_Opening.png)       
+    * Closing : adalah transformation dari dilation diikuti oleh erode yang berguna untuk menghilangkan lubang-lubang kecil yang tidak kita inginkan didalam gambar       
+![closing](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_Closing.png)      
+    * Morphological Gradient : adalah selisih dari dilation dan erode dari sebuah gambar, berguna untuk mencari garis luar dari sebuah gambar      
+![Gradient](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_Gradient.png)      
+    * Top Hat : selisih antara input image dengan opening       
+    ![Top Hat](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_TopHat.png)     
+    * Black Hat : selisih antara closing dengan input image     
+    ![Black Hat](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Theory_BlackHat.png)      
 
 4. Buat file baru dengan nama morem.cpp dan copy-paste code berikut :
 ```cpp
@@ -1074,7 +1074,7 @@ cd test_code/
 
 8. Hasil dari Tutorial ini adalah seperti ini :
 
-![Monyet](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Result.jpg)
+![Monyet](https://docs.opencv.org/3.4.8/Morphology_2_Tutorial_Result.jpg)        
 Dimana, kita belajar untuk mengapply berbagai macam morphological transformation pada sebuah gambar
 (**Selesai pada 21 November 2019, jam 19.34**)
 
@@ -1085,18 +1085,18 @@ Dimana, kita belajar untuk mengapply berbagai macam morphological transformation
 2. Kali ini akan belajar cara melakukan segmentasi sederhana dengan cara threshold, dimana kita akan membedakan daerah dari gambar kita berdasarkan dengan perbedaan intensitas warna pixel sesuai dengan nilai yang akan kita tentukan. Lalu daerah yang kita inginkan ini nanti akan kita berikan nilai sesuai dengan keinginan kita untuk dilakukan proses lebih lanjut (contoh nilai 0 untuk hitam dam 255 untuk putih)
 
 3. ada 5 tipe threshold atau segmentasi dalam OpenCV yang bisa kita gunakan yaitu :
-    * Threshold awal : garis biru melambangkan titik thresh
-![basic](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Base_Figure.png)
-    * Threshold Binary : semua daerah yang melebihi titik thresh diset ke nilai maksimum dan yang tidak melebihi diset ke nilai minimum
-![threshold binary](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Binary.png)
-    * Threshold Binary Inverted : adalah kebalikan dari nilai Threshold Binary
-![inverted](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Binary_Inverted.png)
-    * Truncate : semua nilai yang berada di atas titik thresh diset menjadi setara dengan titik thresh
-![Truncate](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Truncate.png)
-    * Threshold to Zero: semua nilai dibawah titik thresh diset ke nilai minimum
-    ![Threshold to Zero](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Zero.png)
-    * Threshold to Zero Inverted : kebalikan dari Threshold to Zero
-    ![Threshold to Zero Inverted](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Zero_Inverted.png)
+    * Threshold awal : garis biru melambangkan titik thresh     
+![basic](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Base_Figure.png)      
+    * Threshold Binary : semua daerah yang melebihi titik thresh diset ke nilai maksimum dan yang tidak melebihi diset ke nilai minimum     
+![threshold binary](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Binary.png)   
+    * Threshold Binary Inverted : adalah kebalikan dari nilai Threshold Binary   
+![inverted](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Binary_Inverted.png)    
+    * Truncate : semua nilai yang berada di atas titik thresh diset menjadi setara dengan titik thresh    
+![Truncate](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Truncate.png)     
+    * Threshold to Zero: semua nilai dibawah titik thresh diset ke nilai minimum    
+    ![Threshold to Zero](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Zero.png)     
+    * Threshold to Zero Inverted : kebalikan dari Threshold to Zero    
+    ![Threshold to Zero Inverted](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Zero_Inverted.png)    
 
 4. Buat file baru dengan nama basict.cpp dan copy-paste code berikut :
 ```cpp
@@ -1209,10 +1209,11 @@ cd test_code/
 
 8. Hasil dari Tutorial ini adalah seperti ini :
 
-Gambar awal anjing :
-![anjing](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Original_Image.jpg)
+Gambar awal anjing :    
+![anjing](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Original_Image.jpg)     
 
-![binary threshold inverted](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Binary_Inverted.jpg)
-Dimana, kita melakukan Binary Threshold Inverted yang mana semua daerah yang warnanya lebih besar/terang dari titik thresh akan menjadi hitam
-![Threshold to Zero](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Zero.jpg)Dimana, kita melakukan Threshold to Zero yang mana semua daerah yang warnanya lebih gelap dari titik thresh akan menjadi gelap total dan yang nilainya lebih besar akan tetap nilainya
+![binary threshold inverted](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Binary_Inverted.jpg)     
+Dimana, kita melakukan Binary Threshold Inverted yang mana semua daerah yang warnanya lebih besar/terang dari titik thresh akan menjadi hitam     
+![Threshold to Zero](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Zero.jpg)
+Dimana, kita melakukan Threshold to Zero yang mana semua daerah yang warnanya lebih gelap dari titik thresh akan menjadi gelap total dan yang nilainya lebih besar akan tetap nilainya      
 (**Selesai pada 21 November 2019, jam 20.06**)
