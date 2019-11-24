@@ -1214,6 +1214,6 @@ Gambar awal anjing :
 
 ![binary threshold inverted](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Binary_Inverted.jpg)     
 Dimana, kita melakukan Binary Threshold Inverted yang mana semua daerah yang warnanya lebih besar/terang dari titik thresh akan menjadi hitam     
-![Threshold to Zero](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Zero.jpg)
+![Threshold to Zero](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Zero.jpg)   
 Dimana, kita melakukan Threshold to Zero yang mana semua daerah yang warnanya lebih gelap dari titik thresh akan menjadi gelap total dan yang nilainya lebih besar akan tetap nilainya      
 (**Selesai pada 21 November 2019, jam 20.06**)
