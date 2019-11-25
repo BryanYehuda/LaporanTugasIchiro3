@@ -1228,7 +1228,7 @@ Dimana, kita melakukan Binary Threshold Inverted yang mana semua daerah yang war
 
 3. Pemetaan warna menggunakan peta HSV hampir sama seperti pemetaan warna menggunakan RGB. Nilai Hue pada HSV memberikan nilai warna apa yang ingin kita deteksi. Nilai Saturation pada HSV memberikan nilai saturasi warna dari tidak tersaturasi (putih), warna abu-abu, sampai ke 100% tersaturasi (hitam). Nilai Value pada HSV memberikan nilai intensitas warna dari nilai minimum (gelap/hitam) ke nilai maksimum (terang/warna tersebut). Berikut ini adalah contoh dari cylinder HSV      
 ![HSV](https://docs.opencv.org/3.4.8/Threshold_inRange_HSV_colorspace.jpg)      
-. Buat file baru dengan nama inrange.cpp dan copy-paste code berikut :
+4. Buat file baru dengan nama inrange.cpp dan copy-paste code berikut :
 ```cpp
 #include "opencv2/imgproc.hpp"
 #include "opencv2/highgui.hpp"
@@ -1379,3 +1379,116 @@ tanpa perlu menuliskan class samples lagi
     
 1. Melakukan pengetikan laporan dalam bentuk _Markdown_ pada Text Editor StackEdit bersumber dari catatan di _Notes_          
 2. Melakukan Update setiap kali ada aktivitas penugasan yang dikerjakan
+
+## Tugas Bonus : Membuat Robot yang Bisa Mendeteksi Box Berwarna Biru Menggunakan InRange dan FindContour
+
+1. Mempelajari Tutorial OpenCV tentang penggunaan FindContour pada [FindContour Tutorial](https://docs.opencv.org/3.4/df/d0d/tutorial_find_contours.html)
+2. Pada tutorial ini, kita akan belajar cara :
+    * Belajar cara mencari contour pada suatu benda dengan menggunakan function cv::findContours dan cv::drawContours
+3. Buat file baru dengan nama contour.cpp dan copy-paste code berikut :
+```cpp
+/**
+ * @function findContours_Demo.cpp
+ * @brief Demo code to find contours in an image
+ * @author OpenCV team
+ */
+
+#include "opencv2/imgcodecs.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
+#include <iostream>
+
+using namespace cv;
+using namespace std;
+
+Mat src_gray;
+int thresh = 100;
+RNG rng(12345);
+
+/// Function header
+void thresh_callback(int, void* );
+
+/**
+ * @function main
+ */
+int main( int argc, char** argv )
+{
+    /// Load source image
+    CommandLineParser parser( argc, argv, "{@input | HappyFish.jpg | input image}" );
+    Mat src = imread(  parser.get<String>( "@input" )  );
+    if( src.empty() )
+    {
+      cout << "Could not open or find the image!\n" << endl;
+      cout << "Usage: " << argv[0] << " <Input image>" << endl;
+      return -1;
+    }
+
+    /// Convert image to gray and blur it
+    cvtColor( src, src_gray, COLOR_BGR2GRAY );
+    blur( src_gray, src_gray, Size(3,3) );
+
+    /// Create Window
+    const char* source_window = "Source";
+    namedWindow( source_window );
+    imshow( source_window, src );
+
+    const int max_thresh = 255;
+    createTrackbar( "Canny thresh:", source_window, &thresh, max_thresh, thresh_callback );
+    thresh_callback( 0, 0 );
+
+    waitKey();
+    return 0;
+}
+
+/**
+ * @function thresh_callback
+ */
+void thresh_callback(int, void* )
+{
+    /// Detect edges using Canny
+    Mat canny_output;
+    Canny( src_gray, canny_output, thresh, thresh*2 );
+
+    /// Find contours
+    vector<vector<Point> > contours;
+    vector<Vec4i> hierarchy;
+    findContours( canny_output, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE );
+
+    /// Draw contours
+    Mat drawing = Mat::zeros( canny_output.size(), CV_8UC3 );
+    for( size_t i = 0; i< contours.size(); i++ )
+    {
+        Scalar color = Scalar( rng.uniform(0, 256), rng.uniform(0,256), rng.uniform(0,256) );
+        drawContours( drawing, contours, (int)i, color, 2, LINE_8, hierarchy, 0 );
+    }
+
+    /// Show in a window
+    imshow( "Contours", drawing );
+}
+```
+(**Selesai pada 25 November 2019, jam 20.00**)
+
+4. Lalu lakukan compile source code dengan command :
+```
+g++ contour.cpp -o contour `pkg-config --cflags --libs opencv`
+``` 
+
+(**Selesai pada 25 November 2019, jam 20.02**)
+
+5. Download gambar ikan, beri nama HappyFish.jpg (karena di code kita memberi nama file gambarnya dengan nama HappyFish.jpg), dan simpan di dalam direktori yang sama dengan file hasil compile
+(**Selesai pada 25 November 2019, jam 20.04**)
+
+6. Dari hasl pemrograman ini kita bisa mengetahui bahwa contour adalah garis luar dari suatu gambar yang memiliki warna yang sama
+7. Hasil dari Tutorial ini adalah seperti ini :       
+Gambar awal :   
+
+![Gambar Awal](https://docs.opencv.org/3.4/Find_Contours_Original_Image.jpg)       
+Hasil :    
+
+![Gambar Akhir](https://docs.opencv.org/3.4/Find_Contours_Result.jpg)            
+(**Selesai pada 25 November 2019, jam 20.06**)    
+
+8. Membuka sample world pada _Webots_ dengan nama camera.wbt pada direktori sampleworld>devices>camera    
+(**Selesai pada 25 November 2019, jam 20.10**)  
+9. Mempelajari contoh script yang digunakan di sana    
+(**Selesai pada 25 November 2019, jam 20.20**)    
