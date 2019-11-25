@@ -7,7 +7,8 @@ Divisi : Programming
 
  1. _OS Linux Ubuntu_ sudah terinstall                           
  2. _Webots_ sudah terinstall dan tutorial _Webots_ sudah selesai
- 3. Sudah mempelajari dan familier dengan Syntax _Markdown_
+ 3. Microsoft Visual Studio Code sudah terinstall
+ 4. Sudah mempelajari dan familier dengan Syntax _Markdown_
 
 ## Tugas 1 : Install OpenCV Version 4.1.2
  
@@ -1084,7 +1085,7 @@ Dimana, kita belajar untuk mengapply berbagai macam morphological transformation
     
 2. Kali ini akan belajar cara melakukan segmentasi sederhana dengan cara threshold, dimana kita akan membedakan daerah dari gambar kita berdasarkan dengan perbedaan intensitas warna pixel sesuai dengan nilai yang akan kita tentukan. Lalu daerah yang kita inginkan ini nanti akan kita berikan nilai sesuai dengan keinginan kita untuk dilakukan proses lebih lanjut (contoh nilai 0 untuk hitam dam 255 untuk putih)
 
-3. ada 5 tipe threshold atau segmentasi dalam OpenCV yang bisa kita gunakan yaitu :
+3. Ada 5 tipe threshold atau segmentasi dalam OpenCV yang bisa kita gunakan yaitu :
     * Threshold awal : garis biru melambangkan titik thresh     
 ![basic](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Theory_Base_Figure.png)      
     * Threshold Binary : semua daerah yang melebihi titik thresh diset ke nilai maksimum dan yang tidak melebihi diset ke nilai minimum     
@@ -1214,6 +1215,162 @@ Gambar awal anjing :
 
 ![binary threshold inverted](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Binary_Inverted.jpg)     
 Dimana, kita melakukan Binary Threshold Inverted yang mana semua daerah yang warnanya lebih besar/terang dari titik thresh akan menjadi hitam     
-![Threshold to Zero](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Zero.jpg)   
-Dimana, kita melakukan Threshold to Zero yang mana semua daerah yang warnanya lebih gelap dari titik thresh akan menjadi gelap total dan yang nilainya lebih besar akan tetap nilainya      
-(**Selesai pada 21 November 2019, jam 20.06**)
+![Threshold to Zero](https://docs.opencv.org/3.4.8/Threshold_Tutorial_Result_Zero.jpg)       Dimana, kita melakukan Threshold to Zero yang mana semua daerah yang warnanya lebih gelap dari titik thresh akan menjadi gelap total dan yang nilainya lebih besar akan tetap nilainya      
+(**Selesai pada 21 November 2019, jam 20.06**)  
+
+### 6. Thresholding Operation using InRange
+
+1. Pada tutorial ini, kita akan belajar cara :
+    * Belajar melakukan operasi thresholding atau segmentasi dengan menggunakan function cv::inRange
+    * Mendeteksi objek berdasarkan nilai pixel dalam pemetaan warna HSV
+    
+2. Pada tutorial sebelumnya kita melakukan thresholding menggunakan function cv::threshold. Pada tutorial kali ini, kita akan melakukan segmentasi yang sama hanya saja dengan menggunakan function cv::inRange yang bisa mendeteksi warna pixel, bukan hanya gelap terang saja seperti fungsi cv::threshold. Teori pemakaiannya tetap sama, hanya saja pad function kali ini kita memberikan nilai pixel yang ingin kita deteksi
+
+3. Pemetaan warna menggunakan peta HSV hampir sama seperti pemetaan warna menggunakan RGB. Nilai Hue pada HSV memberikan nilai warna apa yang ingin kita deteksi. Nilai Saturation pada HSV memberikan nilai saturasi warna dari tidak tersaturasi (putih), warna abu-abu, sampai ke 100% tersaturasi (hitam). Nilai Value pada HSV memberikan nilai intensitas warna dari nilai minimum (gelap/hitam) ke nilai maksimum (terang/warna tersebut). Berikut ini adalah contoh dari cylinder HSV      
+![HSV](https://docs.opencv.org/3.4.8/Threshold_inRange_HSV_colorspace.jpg)      
+. Buat file baru dengan nama inrange.cpp dan copy-paste code berikut :
+```cpp
+#include "opencv2/imgproc.hpp"
+#include "opencv2/highgui.hpp"
+#include "opencv2/videoio.hpp"
+#include <iostream>
+
+using namespace cv;
+
+/** Global Variables */
+const int max_value_H = 360/2;
+const int max_value = 255;
+const String window_capture_name = "Video Capture";
+const String window_detection_name = "Object Detection";
+int low_H = 0, low_S = 0, low_V = 0;
+int high_H = max_value_H, high_S = max_value, high_V = max_value;
+
+//! [low]
+static void on_low_H_thresh_trackbar(int, void *)
+{
+    low_H = min(high_H-1, low_H);
+    setTrackbarPos("Low H", window_detection_name, low_H);
+}
+//! [low]
+
+//! [high]
+static void on_high_H_thresh_trackbar(int, void *)
+{
+    high_H = max(high_H, low_H+1);
+    setTrackbarPos("High H", window_detection_name, high_H);
+}
+
+//! [high]
+static void on_low_S_thresh_trackbar(int, void *)
+{
+    low_S = min(high_S-1, low_S);
+    setTrackbarPos("Low S", window_detection_name, low_S);
+}
+
+static void on_high_S_thresh_trackbar(int, void *)
+{
+    high_S = max(high_S, low_S+1);
+    setTrackbarPos("High S", window_detection_name, high_S);
+}
+
+static void on_low_V_thresh_trackbar(int, void *)
+{
+    low_V = min(high_V-1, low_V);
+    setTrackbarPos("Low V", window_detection_name, low_V);
+}
+
+static void on_high_V_thresh_trackbar(int, void *)
+{
+    high_V = max(high_V, low_V+1);
+    setTrackbarPos("High V", window_detection_name, high_V);
+}
+
+int main(int argc, char* argv[])
+{
+    //! [cap]
+    VideoCapture cap(argc > 1 ? atoi(argv[1]) : 0);
+    //! [cap]
+
+    //! [window]
+    namedWindow(window_capture_name);
+    namedWindow(window_detection_name);
+    //! [window]
+
+    //! [trackbar]
+    // Trackbars to set thresholds for HSV values
+    createTrackbar("Low H", window_detection_name, &low_H, max_value_H, on_low_H_thresh_trackbar);
+    createTrackbar("High H", window_detection_name, &high_H, max_value_H, on_high_H_thresh_trackbar);
+    createTrackbar("Low S", window_detection_name, &low_S, max_value, on_low_S_thresh_trackbar);
+    createTrackbar("High S", window_detection_name, &high_S, max_value, on_high_S_thresh_trackbar);
+    createTrackbar("Low V", window_detection_name, &low_V, max_value, on_low_V_thresh_trackbar);
+    createTrackbar("High V", window_detection_name, &high_V, max_value, on_high_V_thresh_trackbar);
+    //! [trackbar]
+
+    Mat frame, frame_HSV, frame_threshold;
+    while (true) {
+        //! [while]
+        cap >> frame;
+        if(frame.empty())
+        {
+            break;
+        }
+
+        // Convert from BGR to HSV colorspace
+        cvtColor(frame, frame_HSV, COLOR_BGR2HSV);
+        // Detect the object based on HSV Range Values
+        inRange(frame_HSV, Scalar(low_H, low_S, low_V), Scalar(high_H, high_S, high_V), frame_threshold);
+        //! [while]
+
+        //! [show]
+        // Show the frames
+        imshow(window_capture_name, frame);
+        imshow(window_detection_name, frame_threshold);
+        //! [show]
+
+        char key = (char) waitKey(30);
+        if (key == 'q' || key == 27)
+        {
+            break;
+        }
+    }
+    return 0;
+}
+```
+(**Selesai pada 21 November 2019, jam 20.36**)
+
+5. Lalu lakukan compile source code dengan command :
+```
+g++ inrange.cpp -o inrange `pkg-config --cflags --libs opencv`
+```
+(**Selesai pada 21 November 2019, jam 20.38**)
+
+6. Dan jalankan source code dengan command :
+```
+cd Desktop/
+cd test_code/
+./inrange
+```
+(**Selesai pada 21 November 2019, jam 20.40**)
+
+7. Hasil dari Tutorial ini adalah seperti ini :
+Code berikut nantinya akan mengaktifkan webcam kita dan membuka 2 windows baru, dimana windows pertama akan menunjukkan hasil webcam kita secara original atau pada awalnya  
+![awal](https://docs.opencv.org/3.4.8/Threshold_inRange_Tutorial_Result_input.jpeg)   
+dan yang kedua akan menunjukkan hasil dari segmentasi menggunakan function cv::inRange    
+![akhir](https://docs.opencv.org/3.4.8/Threshold_inRange_Tutorial_Result_output.jpeg)       
+(**Selesai pada 21 November 2019, jam 20.46**)
+
+### Catatan Tambahan
+
+Terdapat bug dalam sistem OpenCV dimana code dengan tulisan :
+```
+src = imread( samples::findFile( parser.get<String>( "@input" ) ), IMREAD_COLOR );
+```
+akan menghasilkan error message :
+```
+samples has not been declared
+```
+hal ini disebabkan karena OpenCV dengan versi terbarunya sudah tidak lagi mendukung penggunaan class samples, sehingga code diatas seharusnya dituliskan sebagai :
+```
+src = imread(  parser.get<String>( "@input" ), IMREAD_COLOR );
+```
+tanpa perlu menuliskan class samples lagi
