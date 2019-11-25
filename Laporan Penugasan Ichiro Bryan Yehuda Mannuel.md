@@ -1374,3 +1374,8 @@ hal ini disebabkan karena OpenCV dengan versi terbarunya sudah tidak lagi menduk
 src = imread(  parser.get<String>( "@input" ), IMREAD_COLOR );
 ```
 tanpa perlu menuliskan class samples lagi
+
+## Tugas 3 : Membuat Laporan Dalam Bentuk Markdown
+    
+1. Melakukan pengetikan laporan dalam bentuk _Markdown_ pada Text Editor StackEdit bersumber dari catatan di _Notes_          
+2. Melakukan Update setiap kali ada aktivitas penugasan yang dikerjakan
